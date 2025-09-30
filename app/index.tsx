@@ -1,5 +1,5 @@
 import WhiteKey from "@/Components/WhiteKey";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export default function Index(){
   return <View style={styles.containter}>
@@ -7,16 +7,6 @@ export default function Index(){
   </View>
 }
 
-
-export default function Index() {
-  return (
-    <View
-      style={styles.containter}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
-}
 
 const styles = StyleSheet.create({
   containter:{
