@@ -25,7 +25,7 @@ export default function TabLayout() {
                     title: "Drums",
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <FontAwesome5 name="drum" size={24} color="black" />
+                        <FontAwesome5 name="drum" size={24} color={color} />
                     ),
                 }}
             />
