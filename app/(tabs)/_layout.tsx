@@ -20,9 +20,9 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="Drums"
+                name="Drum"
                 options={{
-                    title: "Drums",
+                    title: "Drum",
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
                         <FontAwesome5 name="drum" size={24} color={color} />
