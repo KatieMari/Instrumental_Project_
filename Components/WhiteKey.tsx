@@ -5,7 +5,7 @@ interface WhiteKeyProps {
     audio: AudioSource;
 }
 
-const audioSource = require('../helpers/notes/piano/A4.mp3');
+// const audioSource = require('../helpers/notes/piano/A4.mp3');
 
 export default function WhiteKey({ audio }: WhiteKeyProps) {
     const player = useAudioPlayer(audio);
