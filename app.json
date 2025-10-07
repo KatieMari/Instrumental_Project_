@@ -3,7 +3,7 @@
     "name": "instrumental_project",
     "slug": "instrumental_project",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/images/icon.png",
     "scheme": "instrumentalproject",
     "userInterfaceStyle": "automatic",
