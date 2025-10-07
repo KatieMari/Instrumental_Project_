@@ -12,9 +12,9 @@ export function loadAudioPlayer() {
     const A4 = require('./notes/piano/A4.mp3');
     const Ab4 = require('./notes/piano/Ab4.mp3');
     const B4 = require('./notes/piano/B4.mp3');
-    const Bp4 = require('./notes/piano/Bp4.mp3');
+    const Bb4 = require('./notes/piano/Bb4.mp3');
 
-    const pianoNotes = { C4, D4, Db4, E4, Eb4, F4, G4, Gb4, A4, Ab4, B4, Bp4 }
+    const pianoNotes = { C4, D4, Db4, E4, Eb4, F4, G4, Gb4, A4, Ab4, B4, Bb4 }
     return pianoNotes;
 };
 

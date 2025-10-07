@@ -20,12 +20,12 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="Drum"
+                name="Guitar"
                 options={{
-                    title: "Drum",
+                    title: "Guitar",
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <FontAwesome5 name="drum" size={24} color={color} />
+                        <FontAwesome5 name="guitar" size={24} color={color} />
                     ),
                 }}
             />
