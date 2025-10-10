@@ -24,9 +24,9 @@ export default function BlackKey({ audio, style }: BlackKeyProps) {
             onPressOut={() => setPressed(false)}
         >
             <View style={[styles.blackKey,
-                    pressed && styles.blackKeyPressed,
-                    style
-                ]}
+            pressed && styles.blackKeyPressed,
+                style
+            ]}
             >
                 <View style={styles.highlight}></View>
             </View>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         overflow: "hidden",
     },
     blackKeyPressed: {
-           // key moves slightly down
+        // key moves slightly down
         backgroundColor: "#2b2b2b",        // darker shade for pressed look
         shadowOpacity: 0.3,
     },
