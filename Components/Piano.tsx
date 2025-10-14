@@ -1,6 +1,5 @@
 import WhiteKey from "@/Components/WhiteKey";
 import { loadAudioPlayer } from "@/helpers/audio";
-import React from "react";
 import { StyleSheet, View } from "react-native";
 import BlackKey from "./BlackKey";
 
@@ -19,11 +18,8 @@ export default function Piano() {
   return (
     <View style={styles.screen}>
       <View style={styles.piano}>
-
-        <View style={styles.whiteKeys}>
-          {whiteNotes.map((note) => (
-            <WhiteKey key={note} audio={players[note]} />
-          ))}
+        <View style={styles.whiteKeys}> 
+          {whiteNotes.map((note) => (<WhiteKey key={note} audio={players[note]} />))}
         </View>
 
         <View style={styles.blackKeys}>
@@ -31,26 +27,6 @@ export default function Piano() {
             <BlackKey key={note} audio={players[note]} style={{ left }} />
           ))}
         </View>
-
-        {/* <View style={styles.whiteKeys}>
-          <WhiteKey audio={players.C4} />
-          <WhiteKey audio={players.D4} />
-          <WhiteKey audio={players.E4} />
-          <WhiteKey audio={players.F4} />
-          <WhiteKey audio={players.G4} />
-          <WhiteKey audio={players.A4} />
-          <WhiteKey audio={players.B4} />
-        </View> */}
-        {/* 
-        <View style={styles.blackKeys}>
-          <BlackKey audio={players.Db4} style={{ left: 62 }} />
-          <BlackKey audio={players.Eb4} style={{ left: 125 }} />
-          <BlackKey audio={players.Gb4} style={{ left: 248 }} />
-          <BlackKey audio={players.Ab4} style={{ left: 310 }} />
-          <BlackKey audio={players.Bb4} style={{ left: 373 }} />
-        </View> */}
-
-
       </View>
     </View>
   );
@@ -59,15 +35,15 @@ export default function Piano() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: "#b9accaff",       // dark background for contrast
-    alignItems: "center",           // center horizontally
-    justifyContent: "center",       // center vertically
+    backgroundColor: "#b9accaff",       
+    alignItems: "center",           
+    justifyContent: "center",       
   },
   piano: {
     position: "relative",
     alignItems: "center",
     justifyContent: "center",
-    transform: [{ scale: 3 }],    // scales up entire piano (adjust 1.2–1.5 as you like)
+    transform: [{ scale: 3 }],    
   },
   whiteKeys: {
     flexDirection: "row",
@@ -75,9 +51,62 @@ const styles = StyleSheet.create({
   },
   blackKeys: {
     position: "absolute",
-    top: 0,                        // how far down black keys sit on white keys
+    top: 0,                        
     left: 0,
     right: 0,
     zIndex: 2,
   },
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // {/* <View style={styles.whiteKeys}>
+  //         <WhiteKey audio={players.C4} />
+  //         <WhiteKey audio={players.D4} />
+  //         <WhiteKey audio={players.E4} />
+  //         <WhiteKey audio={players.F4} />
+  //         <WhiteKey audio={players.G4} />
+  //         <WhiteKey audio={players.A4} />
+  //         <WhiteKey audio={players.B4} />
+  //       </View> */}
+  //       {/* 
+  //       <View style={styles.blackKeys}>
+  //         <BlackKey audio={players.Db4} style={{ left: 62 }} />
+  //         <BlackKey audio={players.Eb4} style={{ left: 125 }} />
+  //         <BlackKey audio={players.Gb4} style={{ left: 248 }} />
+  //         <BlackKey audio={players.Ab4} style={{ left: 310 }} />
+  //         <BlackKey audio={players.Bb4} style={{ left: 373 }} />
+  //       </View> */}

@@ -1,5 +1,3 @@
-
-
 export function loadAudioPlayer() {
     const C4 = require('./notes/piano/C4.mp3');
     const D4 = require('./notes/piano/D4.mp3');
@@ -16,7 +14,18 @@ export function loadAudioPlayer() {
 
     const pianoNotes = { C4, D4, Db4, E4, Eb4, F4, G4, Gb4, A4, Ab4, B4, Bb4 }
     return pianoNotes;
+
 };
 
+export function loadAudioPlayerGuitar() {
+    const A = require('./notes/guitar/chordA.mp3');
+    const C = require('./notes/guitar/chordC.mp3');
+    const D = require('./notes/guitar/chordD.mp3');
+    const E = require('./notes/guitar/chordE.mp3');
+    const Em = require('./notes/guitar/chordEm.mp3');
+    const G = require('./notes/guitar/chordG.mp3');
 
+    const guitarNotes = { A, C, D, E, Em, G }
+    return guitarNotes;
 
+};

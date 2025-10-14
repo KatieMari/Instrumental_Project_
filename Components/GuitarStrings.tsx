@@ -1,22 +1,20 @@
-import { AudioSource, useAudioPlayer } from 'expo-audio';
+import { AudioSource, useAudioPlayer } from "expo-audio";
 import { useState } from "react";
 import { Pressable, StyleSheet, View, ViewStyle } from "react-native";
 
-interface WhiteKeyProps {
+interface GuitarStringsProps {
     audio: AudioSource;
     style?: ViewStyle;
 }
 
-// const audioSource = require('../helpers/notes/piano/A4.mp3');
-
-export default function WhiteKey({ audio, style }: WhiteKeyProps) {
+export default function GuitarStrings({ audio, style }: GuitarStringsProps) {
     const player = useAudioPlayer(audio);
     const [pressed, setPressed] = useState(false);
 
     function onPress() {
         player.seekTo(0);
         player.play()
-        console.log("a white key has been pressed!")
+        console.log("a guitar string has been pressed!")
     };
 
     return (
@@ -24,30 +22,30 @@ export default function WhiteKey({ audio, style }: WhiteKeyProps) {
             onPress={onPress}
             onPressIn={() => setPressed(true)}
             onPressOut={() => setPressed(false)}>
-            <View style={[styles.whiteKey, pressed && styles.whiteKeyPressed, style]}></View>
+            <View style={[styles.guitarStrings, pressed && styles.guitarStringPressed, style]}></View>
+
         </Pressable>
     );
 }
 
 const styles = StyleSheet.create({
-    whiteKey: {
-        width: 60,
-        height: 240,
+    guitarStrings: {
+        width: 400,
+        height: 8,
         backgroundColor: "#fff",
-        borderColor: "#ddd",
+        borderColor: "#c0bfbfff",
         borderWidth: 1,
-        borderBottomWidth: 4,
-        marginHorizontal: 1,
+        borderBottomWidth: 2,
         borderRadius: 6,
         overflow: "hidden",
-        shadowColor: "#000",
+        shadowColor: "#636161ff",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.28,
         shadowRadius: 5,
-        elevation: 5,
+        elevation: 3,
     },
 
-    whiteKeyPressed: {
+    guitarStringPressed: {
         shadowOpacity: 0.08,
         backgroundColor: "#cacacaff",
     },
