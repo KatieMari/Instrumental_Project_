@@ -11,8 +11,10 @@ export default function Guitar() {
         <View style={styles.screen}>
             <View style={styles.guitar}>
                 <View style={styles.guitarBase}>
-                    <View style={styles.guitarStrings}>
-                        {guitarNotes.map((note) => (<GuitarStrings key={note} audio={players[note]} />))}
+                    <View style={styles.guitarHead}>
+                        <View style={styles.guitarStrings}>
+                            {guitarNotes.map((note) => (<GuitarStrings key={note} audio={players[note]} />))}
+                        </View>
                     </View>
                 </View>
             </View>
@@ -45,7 +47,10 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.28,
         shadowRadius: 5,
-        
+    },
+
+    guitarHead: {
+
     },
 
     guitarStrings: {
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
         zIndex: 1,
         gap: 15,
         marginTop: 13,
-        
+
     },
 
 
