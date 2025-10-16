@@ -29,24 +29,20 @@ export default function GuitarStrings({ audio, style }: GuitarStringsProps) {
 }
 
 const styles = StyleSheet.create({
-    guitarStrings: {
-        width: 400,
-        height: 8,
-        backgroundColor: "#fff",
-        borderColor: "#c0bfbfff",
-        borderWidth: 1,
-        borderBottomWidth: 2,
-        borderRadius: 6,
-        overflow: "hidden",
-        shadowColor: "#636161ff",
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.28,
-        shadowRadius: 5,
-        elevation: 3,
-    },
-
-    guitarStringPressed: {
-        shadowOpacity: 0.08,
-        backgroundColor: "#cacacaff",
-    },
+  guitarStrings: {
+    width: 280,
+    height: 4,
+    backgroundColor: "#e8e8e8",
+    borderColor: "#bbb",
+    borderWidth: 0.6,
+    borderRadius: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.15,
+    shadowRadius: 1,
+  },
+  guitarStringPressed: {
+    backgroundColor: "#cfcfcf",
+    shadowOpacity: 0.05,
+  },
 });

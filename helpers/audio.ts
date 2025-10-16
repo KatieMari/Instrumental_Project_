@@ -18,14 +18,14 @@ export function loadAudioPlayer() {
 };
 
 export function loadAudioPlayerGuitar() {
-    const A = require('./notes/guitar/chordA.mp3');
-    const C = require('./notes/guitar/chordC.mp3');
-    const D = require('./notes/guitar/chordD.mp3');
-    const E = require('./notes/guitar/chordE.mp3');
-    const Em = require('./notes/guitar/chordEm.mp3');
-    const G = require('./notes/guitar/chordG.mp3');
+    const Am = require('./notes/guitar/ChordAm.m4a');
+    const C = require('./notes/guitar/ChordC.m4a');
+    const Dm = require('./notes/guitar/ChordDm.m4a');
+    const F = require('./notes/guitar/ChordF.m4a');
+    const Em = require('./notes/guitar/ChordEm.m4a');
+    const G = require('./notes/guitar/ChordG.m4a');
 
-    const guitarNotes = { A, C, D, E, Em, G }
+    const guitarNotes = { Am, C, Dm, F, Em, G }
     return guitarNotes;
 
 };

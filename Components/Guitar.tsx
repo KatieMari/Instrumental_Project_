@@ -9,10 +9,16 @@ export default function Guitar() {
 
     return (
         <View style={styles.screen}>
-            <View style={styles.guitar}>
-                <View style={styles.guitarBase}>
-                    <View style={styles.guitarHead}>
-                        <View style={styles.guitarStrings}>
+            <View style={styles.guitarNeck}>
+
+                {Array.from({ length: 8 }).map((_, i) => (
+                    <View key={i} style={[styles.fret, { left: i * 45 + 40 }]} />
+                ))}
+
+                <View style={[styles.marker, { left: 140 }]} />
+                <View style={[styles.marker, { left: 275 }]} />
+
+              <View style={styles.stringContainer}>
                             {guitarNotes.map((note) => (<GuitarStrings key={note} audio={players[note]} />))}
                         </View>
                     </View>
