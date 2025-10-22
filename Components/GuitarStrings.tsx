@@ -31,15 +31,15 @@ export default function GuitarStrings({ audio, style }: GuitarStringsProps) {
 const styles = StyleSheet.create({
   string: {
     width: "100%",
-    height: 15,
+    height: 20,
     backgroundColor: "#d9d9d9",
-    borderBottomWidth: 1,
-    borderColor: "#8a8a8a",
+    borderBottomWidth: 5,
+    borderColor: "#bdbcbcff",
     shadowColor: "#000",
     shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 1,
-    borderRadius: 2,
+    shadowOffset: { width: 5, height: 5 },
+    shadowRadius: 5,
+    borderRadius: 15,
   },
 
   stringPressed: {

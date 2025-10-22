@@ -3,31 +3,31 @@ import { StyleSheet, View } from "react-native";
 import GuitarStrings from "./GuitarStrings";
 
 export default function Guitar() {
-    const players = loadAudioPlayerGuitar() as Record<string, any>;
+  const players = loadAudioPlayerGuitar() as Record<string, any>;
 
-    const guitarNotes = ["Am", "C", "Dm", "F", "Em", "G"];
-
-
-
-    return (
-        <View style={styles.screen}>
-            <View style={styles.guitarNeck}>
-
-                {Array.from({ length: 8 }).map((_, i) => (
-                    <View key={i} style={[styles.fret, { left: i * 240 + 155 }]} />
-                ))}
-
-                <View style={[styles.marker, { left: 1000 }]} />
-                <View style={[styles.marker, { left: 1500 }]} />
-
-                <View style={styles.stringContainer}>
-                    {guitarNotes.map((note) => (<GuitarStrings key={note} audio={players[note]} />))}
+  const guitarNotes = ["Am", "C", "Dm", "F", "Em", "G"];
 
 
-                </View>
-            </View>
+
+  return (
+    <View style={styles.screen}>
+      <View style={styles.guitarNeck}>
+
+        {Array.from({ length: 8 }).map((_, i) => (
+          <View key={i} style={[styles.fret, { left: i * 200 + 92 }]} />
+        ))}
+
+        <View style={[styles.marker, { left: 750 }]} />
+        <View style={[styles.marker, { left: 1200 }]} />
+
+        <View style={styles.stringContainer}>
+          {guitarNotes.map((note) => (<GuitarStrings key={note} audio={players[note]} />))}
+
+
         </View>
-    );
+      </View>
+    </View>
+  );
 
 }
 
@@ -41,17 +41,17 @@ const styles = StyleSheet.create({
 
   guitarNeck: {
     position: "relative",
-    width: 2000, // slightly wider for better fret spacing
-    height: 800,
-    borderRadius: 10,
+    width: 1600,
+    height: 640,
+    borderRadius: 15,
     backgroundColor: "#7b5b36",
-    borderWidth: 2,
-    borderColor: "#4a321a",
+    borderWidth: 3,
+    borderColor: "#f3cae3ff",
     overflow: "hidden",
     shadowColor: "#000",
     shadowOpacity: 0.25,
     shadowRadius: 5,
-    shadowOffset: { width: 0, height: 3 },
+    shadowOffset: { width: 10, height: 10 },
   },
 
   stringContainer: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     bottom: 0,
-    width: 10,
+    width: 8,
     backgroundColor: "#e5d9b6",
     opacity: 0.9,
   },
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
   marker: {
     position: "absolute",
     top: "45%",
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 25,
     backgroundColor: "#fff",
     opacity: 0.7,
