@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   string: {
     width: "100%",
     height: 20,
-    backgroundColor: "#d9d9d9",
+    backgroundColor: "#ddcee2ff",
     borderBottomWidth: 5,
     borderColor: "#bdbcbcff",
     shadowColor: "#000",
@@ -44,6 +44,6 @@ const styles = StyleSheet.create({
 
   stringPressed: {
     transform: [{ translateY: 1 }],
-    backgroundColor: "#bbb",
+    backgroundColor: "#aa91b3ff",
   },
 });

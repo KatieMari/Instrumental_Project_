@@ -17,8 +17,8 @@ export default function Guitar() {
           <View key={i} style={[styles.fret, { left: i * 200 + 92 }]} />
         ))}
 
-        <View style={[styles.marker, { left: 750 }]} />
-        <View style={[styles.marker, { left: 1200 }]} />
+        <View style={[styles.marker, { left: 770 }]} />
+        <View style={[styles.marker, { left: 1170 }]} />
 
         <View style={styles.stringContainer}>
           {guitarNotes.map((note) => (<GuitarStrings key={note} audio={players[note]} />))}
@@ -44,9 +44,9 @@ const styles = StyleSheet.create({
     width: 1600,
     height: 640,
     borderRadius: 15,
-    backgroundColor: "#7b5b36",
+    backgroundColor: "#faf1f9ff",
     borderWidth: 3,
-    borderColor: "#f3cae3ff",
+    borderColor: "#ddd",
     overflow: "hidden",
     shadowColor: "#000",
     shadowOpacity: 0.25,
@@ -68,17 +68,21 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: 8,
-    backgroundColor: "#e5d9b6",
+    backgroundColor: "#bd9ab5ff",
     opacity: 0.9,
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowRadius: 5,
+    shadowOffset: { width: 5, height: 5 },
   },
 
   marker: {
     position: "absolute",
-    top: "45%",
-    width: 40,
-    height: 40,
+    top: "46%",
+    width: 50,
+    height: 50,
     borderRadius: 25,
-    backgroundColor: "#fff",
+    backgroundColor: "#ce98beff",
     opacity: 0.7,
     shadowColor: "#000",
     shadowOpacity: 0.2,
@@ -89,29 +93,3 @@ const styles = StyleSheet.create({
 
 
 
-{/* <View style={styles.headstock}>
-    {Array.from({ length: 6 }).map((_, i) => (
-        <View key={i} style={[styles.tuningPeg, { top: i * 10 + 5 }]} />))}
-</View> */}
-
-
-
-// headstock: {
-//     position: "absolute",
-//     right: -40,
-//     top: 0,
-//     width: 40,
-//     height: "100%",
-//     backgroundColor: "#4a321a",
-//     borderTopRightRadius: 8,
-//     borderBottomRightRadius: 8,
-//     justifyContent: "center",
-//     alignItems: "center",
-// },
-
-// tuningPeg: {
-//     width: 8,
-//     height: 8,
-//     borderRadius: 4,
-//     backgroundColor: "#d9d9d9",
-//     marginVertical: 3,
