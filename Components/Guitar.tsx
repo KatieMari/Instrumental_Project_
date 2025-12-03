@@ -1,37 +1,94 @@
 import { loadAudioPlayerGuitar } from "@/helpers/audio";
-import { StyleSheet, View } from "react-native";
-import GuitarStrings from "./GuitarStrings";
+import React, { useRef, useState } from "react";
+import { GestureResponderEvent, StyleSheet, View } from "react-native";
+import GuitarStrings, { GuitarStringHandle } from "./GuitarStrings";
 
 export default function Guitar() {
+  // Load all Guitar Note Audio Player
   const players = loadAudioPlayerGuitar() as Record<string, any>;
 
+  // Chords for Each String
   const guitarNotes = ["Am", "C", "Dm", "F", "Em", "G"];
 
+  // Refs to each String Component so 'pluck()' can be Called Imperatively 
+  const stringRefs = useRef<(GuitarStringHandle | null)[]>([]);
+  // Height of the Container that Holds all Strings, Used for Press Detection
+  const [containerHeight, setContainerHeight] = useState<number | null>(null);
+  // Keeps Track of which String Index was last Triggered while Dragging (strumming), so we dont Repeatedly Trigger the same one During Small Movements
+  const lastIndexRef = useRef<number | null>(null);
 
+  // Called Whenever the User Moves Across the Guitar Neck
+  function handleMove(e: GestureResponderEvent) {
+    if (!containerHeight) return;
+
+    const { locationY } = e.nativeEvent;
+
+    // Divide the Total Height into Equal Bands, one for each String
+    const stringHeight = containerHeight / guitarNotes.length;
+    const index = Math.floor(locationY / stringHeight);
+
+    // Only Trigger if - User Moved to a Different String - The Index is Within Valid Range
+    if (
+      index !== lastIndexRef.current &&
+      index >= 0 &&
+      index < guitarNotes.length
+    ) {
+      const stringHandle = stringRefs.current[index];
+      // Plucks the String
+      stringHandle?.pluck();
+      lastIndexRef.current = index;
+    }
+  }
+
+  // Reset Last String Index when the Touch is Released
+  function handleRelease() {
+    lastIndexRef.current = null;
+  }
 
   return (
     <View style={styles.screen}>
-      <View style={styles.guitarNeck}>
-
+      {/* Guitar Neck Area that Receives and Tracks Touch Gestures */}
+      <View
+        style={styles.guitarNeck}
+        // Tell React Native that this View wants to become the Touch Responder
+        onStartShouldSetResponder={() => true}
+        onMoveShouldSetResponder={() => true}
+        onResponderMove={handleMove}
+        onResponderRelease={handleRelease}
+      >
+        {/* Frets Along the Guitar Neck */}
         {Array.from({ length: 8 }).map((_, i) => (
           <View key={i} style={[styles.fret, { left: i * 200 + 92 }]} />
         ))}
 
+        {/* Fretboard Markers */}
         <View style={[styles.marker, { left: 770 }]} />
         <View style={[styles.marker, { left: 1170 }]} />
 
-        <View style={styles.stringContainer}>
-          {guitarNotes.map((note) => (<GuitarStrings key={note} audio={players[note]} />))}
-
-
+        {/* Container that Lays out all Strings Vertically */}
+        <View
+          style={styles.stringContainer}
+          // Captures Height so we can Map Touch Y Position to a String Index
+          onLayout={(e) => setContainerHeight(e.nativeEvent.layout.height)}
+        >
+          {guitarNotes.map((note, index) => (
+            <GuitarStrings
+              key={note}
+              audio={players[note]}
+              // Store ref so we can Call 'pluck()' Based on Touch Position
+              ref={(el) => {
+                stringRefs.current[index] = el;
+              }}
+            />
+          ))}
         </View>
       </View>
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({
+  // FullScreen Centered Layout
   screen: {
     flex: 1,
     backgroundColor: "#b9accaff",
@@ -39,6 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  // Visual Styling for the Guitar Neck Area
   guitarNeck: {
     position: "relative",
     width: 1600,
@@ -54,6 +112,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 10, height: 10 },
   },
 
+  // Vertical Container the Positions the Strings Evenly
   stringContainer: {
     position: "absolute",
     top: 0,
@@ -63,6 +122,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 
+  // Individual Fret Styling - Vertical Bars Across the Neck
   fret: {
     position: "absolute",
     top: 0,
@@ -76,6 +136,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 5, height: 5 },
   },
 
+  // Circular Fretboard Markers
   marker: {
     position: "absolute",
     top: "46%",
@@ -90,6 +151,3 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
   },
 });
-
-
-

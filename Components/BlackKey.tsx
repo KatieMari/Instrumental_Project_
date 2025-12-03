@@ -2,50 +2,47 @@ import { AudioSource, useAudioPlayer } from "expo-audio";
 import { useState } from "react";
 import { Pressable, StyleSheet, View, ViewStyle } from "react-native";
 
-//Defines the type of data (Props) that the BlackKey Component expects
+//Defines the Type of Props that the BlackKey Component Expects
 interface BlackKeyProps {
-    //Specific Audio Clip to be played when key is pressed
+    //The Audio Clip that Plays when the Key is Pressed
     audio: AudioSource;
-    //Style passed in from parent component
+    //Optional Custom Styling Provided by the Parent Component
     style?: ViewStyle;
 }
 
-//Main Component that represents a single Black Piano Key
+//Main Component that Represents a Single Black Piano Key
 export default function BlackKey({ audio, style }: BlackKeyProps) {
-    //Create an Audio PLayer that can play the provided sound file
+    //Create an Audio PLayer that can Play the Provided Sound File
     const player = useAudioPlayer(audio);
-    //Tracks whether the user is currently pressing down on the key, allows us to visually change the key
+    //Tracks Whether the Key is Currently being Pressed
     const [pressed, setPressed] = useState(false);
 
 
-    //Function that gets called when the key is fully pressed 
+    //Function that gets Called when the Key is Fully Pressed 
     function onPress() {
-        //Rewinds the audio so it plays from the start every time
+        //Rewinds the Audio so it Plays from the Start Every Time
         player.seekTo(0);
-        //PLays the audio file associated with the key
+        //PLays the Assigned Sound
         player.play();
         console.log("Black key pressed!");
     }
 
-    //Components visual structure
+    //Components Visual Structure
     return (
-        //Pressable - a wrapper that detects touch interactions
-        //View - represents the visible rectangular key
-        //Inner View - adds a highlight for visual effect
         <Pressable
-            //Plays sound when pressed
+            //Trigger Sound on Full Press
             onPress={onPress}
-            //Changes state to pressed when key is pressed
+            //When User Touches the Key
             onPressIn={() => setPressed(true)}
-            //Reverts state when key is released
+            //When User Lifts off the Key
             onPressOut={() => setPressed(false)} >
 
             <View style={[
-                //Default style
+                //Default Style
                 styles.blackKey,
-                //Adds the Pressed effect when key is held down
+                //Visual Feedback when the Key is Pressed
                 pressed && styles.blackKeyPressed,
-                //Merges any styles passed in from the parent 
+                //Optional Styles from Parent
                 style
             ]} >
                 <View style={styles.highlight}></View>
@@ -54,38 +51,39 @@ export default function BlackKey({ audio, style }: BlackKeyProps) {
     );
 }
 
-//StyleSheet defines styles for the component above
+//Styles for the BlackKey Component
 const styles = StyleSheet.create({
     blackKey: {
-        //Allows manual positioning 
+        //Allows Manual Placement on the Keyboard
         position: "absolute",
         width: 42,
         height: 140,
         backgroundColor: "#ddcee2ff",
         borderRadius: 7,
-        //Added to flatten the top of the Keys for more seamless look
+        //Flattened Top Edges for Smoother Connection with WhiteKeys
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
-        //Moves the Key to the left so it's centered over its matching WhiteKey
+        //Centers the BlackKey over its Corresponding WhiteKey
         marginLeft: -21,
         shadowColor: "#0f0f0fff",
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.6,
         shadowRadius: 5,
-        //Android equivalent for shadow
+        //Android Shadow
         elevation: 6,
-        //Ensures highlight doesn't spill outtise the round edges
+        //Keeps Highlight Inside the Rounded Edges
         overflow: "hidden",
     },
     blackKeyPressed: {
+        // Slightly Lighter when Pressed
         backgroundColor: "#c2aec9ff",
+        // Reduced Shadow for Pressed-In Effect
         shadowOpacity: 0.3,
 
     },
     highlight: {
-        //Allows manual positioning 
         position: "absolute",
-        //These 3 anchor the highlight at the top of the ket and stretch it edge to edge horizontally
+        //Anchored at the Top and Spans Full Width
         top: 0,
         left: 0,
         right: 0,
@@ -93,7 +91,3 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(236, 235, 236, 0.5)",
     },
 });
-
-
-//Makes sure BlackKeys appear visually ontop of the WhiteKeys
-// zIndex: 2,

@@ -6,6 +6,7 @@ export default function NotFoundScreen() {
         <>
             <Stack.Screen options={{ title: 'Oops! Page Not Found!' }} />
             <View style={styles.container}>
+                {/* Link Navigates the User back to the Piano Tab */}
                 <Link href="/Piano" style={styles.button}>
                     Go back to Home Screen!
                 </Link>
@@ -16,6 +17,7 @@ export default function NotFoundScreen() {
 }
 
 const styles = StyleSheet.create({
+    // Fullscreen Centered Container with Dark Background
     container: {
         flex: 1,
         backgroundColor: '#25292e',
@@ -23,6 +25,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
+    // Styles Link that Looks like a Button
     button: {
         fontSize: 20,
         textDecorationLine: 'underline',

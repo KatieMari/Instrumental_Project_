@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import { Orientation, addOrientationChangeListener, getOrientationAsync } from "expo-screen-orientation";
 
 export default function useOrientation() {
-    // Sets the state for orientation, 
+    // Sets the State for Orientation, 
     const [CurrentOrientation, setOrientation] = useState(Orientation.UNKNOWN)
 
-    // Async Function, Executed in the background, await function = wait to obtain the result, get orientantion and wait for result (not stopping all the code for it)
+    // Async Function, Executed in the Background, Await Function = Wait to Obtain the Result, get Orientantion and Wait for Eesult (not stopping all the code for it)
     const loadOrientation = async () => {
         const Orientation = await getOrientationAsync();
         setOrientation(Orientation);
     }
     // console.log ("Hello World");
     useEffect(() => {
-        // Execute the function
+        // Execute the Function
         loadOrientation()
-        // Load the orientation, everytime is changes its update screen orientation value
+        // Load the Orientation, Everytime is Changes its Update Screen Orientation Value
         addOrientationChangeListener(loadOrientation)
     });
 
