@@ -85,7 +85,13 @@ export default function WhiteKey(props: WhiteKeyProps) {
 
 ## Dependencies 
 Apart from React Native and Expo dependencies, the app also relies on:
-- expo-router – file-based routing and navigation
-- expo-screen-orientation – orientation locking and detection
-- expo-audio – audio playback for notes and chords
-@expo/vector-icons – icons for the tab bar and UI
+- [expo-router](https://docs.expo.dev/versions/latest/sdk/router/) – file-based routing and navigation
+- [expo-screen-orientation](https://docs.expo.dev/versions/latest/sdk/screen-orientation/) – orientation locking and detection
+- [expo-audio](https://docs.expo.dev/versions/latest/sdk/audio/) – audio playback for notes and chords
+- [@expo/vector-icons](https://icons.expo.fyi/Index) – icons for the tab bar and UI
+
+## Useful Links
+- [Expo Documentation](https://docs.expo.dev/)
+- [React Native Documentation](https://reactnative.dev/docs/getting-started)
+- [Expo Vector Icons](https://icons.expo.fyi/Index)
+- [Expo Router Documentation](https://docs.expo.dev/router/introduction/)
