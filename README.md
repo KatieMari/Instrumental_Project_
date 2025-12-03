@@ -62,7 +62,7 @@ All icons added should come from the [expo official repositories](https://icons.
 All React components should be declared as follows:
 
 File Name: WhiteKey.tsx
-```
+```ts
 export default function WhiteKey(props: WhiteKeyProps) {
   const { /* props here */ } = props;
   /***
