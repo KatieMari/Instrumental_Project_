@@ -1,31 +1,58 @@
 import { loadAudioPlayerGuitar } from "@/helpers/audio";
 import React, { useRef, useState } from "react";
-import { GestureResponderEvent, StyleSheet, View } from "react-native";
+import { GestureResponderEvent, Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import GuitarStrings, { GuitarStringHandle } from "./GuitarStrings";
+
+// Natural Size of the Guitar Neck Before Scaling
+const NECK_WIDTH = 1600;
+const NECK_HEIGHT = 640;
 
 export default function Guitar() {
   // Load all Guitar Note Audio Player
   const players = loadAudioPlayerGuitar() as Record<string, any>;
+  // Current Screen/Window Size
+  const { width, height } = useWindowDimensions();
 
   // Chords for Each String
   const guitarNotes = ["Am", "C", "Dm", "F", "Em", "G"];
 
-  // Refs to each String Component so 'pluck()' can be Called Imperatively 
+  // Refs to each String Component so 'pluck()' can be Called Imperatively
   const stringRefs = useRef<(GuitarStringHandle | null)[]>([]);
+  // Ref to the Guitar Neck - on the Web we Measure it to Work Out which String the Mouse is Over
+  const neckRef = useRef<View>(null);
   // Height of the Container that Holds all Strings, Used for Press Detection
   const [containerHeight, setContainerHeight] = useState<number | null>(null);
   // Keeps Track of which String Index was last Triggered while Dragging (strumming), so we dont Repeatedly Trigger the same one During Small Movements
   const lastIndexRef = useRef<number | null>(null);
 
-  // Called Whenever the User Moves Across the Guitar Neck
-  function handleMove(e: GestureResponderEvent) {
-    if (!containerHeight) return;
+  // In a Web Browser, Shrink the Guitar so it Always Fits the Window (Phones Keep the Original Size)
+  const scale =
+    Platform.OS === "web"
+      ? Math.min(1, (width * 0.92) / NECK_WIDTH, (height * 0.75) / NECK_HEIGHT)
+      : 1;
 
+  // Works Out which String (0-5) the Finger or Mouse is Over
+  function getStringIndex(e: GestureResponderEvent) {
+    // Web: Compare the Mouse Position with the Neck's Position on the Page.
+    // This Still Works when the Neck has been Scaled Down to Fit the Window.
+    if (Platform.OS === "web") {
+      const node = neckRef.current as unknown as HTMLElement | null;
+      if (!node) return -1;
+      const rect = node.getBoundingClientRect();
+      const y = e.nativeEvent.pageY - window.scrollY - rect.top;
+      return Math.floor(y / (rect.height / guitarNotes.length));
+    }
+
+    // Phones: Divide the Total Height into Equal Bands, one for each String
+    if (!containerHeight) return -1;
     const { locationY } = e.nativeEvent;
-
-    // Divide the Total Height into Equal Bands, one for each String
     const stringHeight = containerHeight / guitarNotes.length;
-    const index = Math.floor(locationY / stringHeight);
+    return Math.floor(locationY / stringHeight);
+  }
+
+  // Called Whenever the User Touches or Moves Across the Guitar Neck
+  function handleMove(e: GestureResponderEvent) {
+    const index = getStringIndex(e);
 
     // Only Trigger if - User Moved to a Different String - The Index is Within Valid Range
     if (
@@ -49,10 +76,12 @@ export default function Guitar() {
     <View style={styles.screen}>
       {/* Guitar Neck Area that Receives and Tracks Touch Gestures */}
       <View
-        style={styles.guitarNeck}
+        ref={neckRef}
+        style={[styles.guitarNeck, { transform: [{ scale }] }]}
         // Tell React Native that this View wants to become the Touch Responder
         onStartShouldSetResponder={() => true}
         onMoveShouldSetResponder={() => true}
+        onResponderGrant={handleMove}
         onResponderMove={handleMove}
         onResponderRelease={handleRelease}
       >
@@ -94,13 +123,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#b9accaff",
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
   },
 
   // Visual Styling for the Guitar Neck Area
   guitarNeck: {
     position: "relative",
-    width: 1600,
-    height: 640,
+    width: NECK_WIDTH,
+    height: NECK_HEIGHT,
     borderRadius: 15,
     backgroundColor: "#faf1f9ff",
     borderWidth: 3,

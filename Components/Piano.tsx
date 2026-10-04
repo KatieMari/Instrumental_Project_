@@ -1,11 +1,17 @@
 import WhiteKey from "@/Components/WhiteKey";
 import { loadAudioPlayer } from "@/helpers/audio";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, useWindowDimensions, View } from "react-native";
 import BlackKey from "./BlackKey";
+
+// Natural Size of the Keyboard Before Scaling (7 WhiteKeys x 62px wide, 244px tall)
+const KEYBOARD_WIDTH = 434;
+const KEYBOARD_HEIGHT = 244;
 
 export default function Piano() {
   // Load all Audio PLayers for Piano Notes
   const players = loadAudioPlayer() as Record<string, any>;
+  // Current Screen/Window Size
+  const { width, height } = useWindowDimensions();
 
   // Labels for each WhiteKey on the KeyBoard
   const whiteNotes = ["C4", "D4", "E4", "F4", "G4", "A4", "B4"];
@@ -19,12 +25,18 @@ export default function Piano() {
     { note: "Bb4", left: 373 },
   ];
 
+  // On Phones Keep the Original 3x Zoom. In a Web Browser, Shrink the Piano so it Always Fits the Window
+  const scale =
+    Platform.OS === "web"
+      ? Math.min(3, (width * 0.9) / KEYBOARD_WIDTH, (height * 0.7) / KEYBOARD_HEIGHT)
+      : 3;
+
   return (
     <View style={styles.screen}>
       {/* Main Container that Holds the Full Piano */}
-      <View style={styles.piano}>
+      <View style={[styles.piano, { transform: [{ scale }] }]}>
         {/* Row of WhiteKeys Aligned Side-by-Side */}
-        <View style={styles.whiteKeys}> 
+        <View style={styles.whiteKeys}>
           {whiteNotes.map((note) => (<WhiteKey key={note} audio={players[note]} />))}
         </View>
 
@@ -43,18 +55,16 @@ const styles = StyleSheet.create({
   // FullScreen Centered Background for the Piano
   screen: {
     flex: 1,
-    backgroundColor: "#b9accaff",       
-    alignItems: "center",           
-    justifyContent: "center",       
+    backgroundColor: "#b9accaff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
-  // Scaled Piano Container
+  // Piano Container (the Zoom Level is Set Above, Based on Screen Size)
   piano: {
     position: "relative",
     alignItems: "center",
     justifyContent: "center",
-    // Zoom in for a Larger Piano
-    transform: [{ scale: 3 }],    
   },
 
   // Horizontal Row of WhiteKeys
@@ -67,57 +77,10 @@ const styles = StyleSheet.create({
   // BlackKeys Stack Above the WhiteKeys
   blackKeys: {
     position: "absolute",
-    top: 0,                        
+    top: 0,
     left: 0,
     right: 0,
     // Ensures BlackKeys Appear Visually on top
     zIndex: 2,
   },
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// FOR TASK DOCUMENTATION
-  // {/* <View style={styles.whiteKeys}>
-  //         <WhiteKey audio={players.C4} />
-  //         <WhiteKey audio={players.D4} />
-  //         <WhiteKey audio={players.E4} />
-  //         <WhiteKey audio={players.F4} />
-  //         <WhiteKey audio={players.G4} />
-  //         <WhiteKey audio={players.A4} />
-  //         <WhiteKey audio={players.B4} />
-  //       </View> */}
-  //       {/* 
-  //       <View style={styles.blackKeys}>
-  //         <BlackKey audio={players.Db4} style={{ left: 62 }} />
-  //         <BlackKey audio={players.Eb4} style={{ left: 125 }} />
-  //         <BlackKey audio={players.Gb4} style={{ left: 248 }} />
-  //         <BlackKey audio={players.Ab4} style={{ left: 310 }} />
-  //         <BlackKey audio={players.Bb4} style={{ left: 373 }} />
-  //       </View> */}
